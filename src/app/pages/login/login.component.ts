@@ -19,6 +19,7 @@ export class LoginComponent {
   login() {
     this.cargando = true;
     this.error = '';
+     this.router.navigate(['/dashboard']);
     this.auth.login(this.email, this.password).subscribe({
       next: (res) => {
         this.auth.guardarToken(res.token);
