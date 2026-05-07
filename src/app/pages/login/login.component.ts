@@ -9,26 +9,47 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
   email = '';
   password = '';
+
   error = '';
   cargando = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   login() {
+
     this.cargando = true;
     this.error = '';
-     this.router.navigate(['/dashboard']);
-    this.auth.login(this.email, this.password).subscribe({
-      next: (res) => {
-        this.auth.guardarToken(res.token);
-        this.router.navigate(['/dashboard']);
-      },
-      error: () => {
-        this.error = 'Credenciales incorrectas';
-        this.cargando = false;
-      }
-    });
+
+    this.auth.login(this.email, this.password)
+      .subscribe({
+
+        next: (res) => {
+          this.auth.guardarToken(res.token);
+
+          // guardar datos usuario
+          localStorage.setItem('usuario', res.usuario);
+          localStorage.setItem('nombre', res.nombre);
+          localStorage.setItem('cargo', res.cargo);
+          localStorage.setItem('correo', res.correo);
+
+          this.router.navigate(['/dashboard']);
+          this.cargando = false;
+        },
+
+        error: (err) => {
+          console.log(err);
+          this.error = 'Credenciales incorrectas';
+          this.cargando = false;
+        }
+
+      });
+
   }
+
 }
