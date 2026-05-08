@@ -1,0 +1,166 @@
+.sidebar {
+
+  width: 260px;
+  height: 100vh;
+
+  background: linear-gradient(
+    180deg,
+    #111827,
+    #1f2937
+  );
+
+  padding: 24px 18px;
+
+  box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  h2 {
+
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+
+    margin: 0;
+  }
+
+  span {
+
+    color: #9ca3af;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+}
+
+.menu {
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item a {
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  text-decoration: none;
+
+  padding: 14px 16px;
+
+  border-radius: 14px;
+
+  color: #d1d5db;
+
+  transition: all .25s ease;
+
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.menu-item a i {
+
+  font-size: 20px;
+}
+
+.menu-item a:hover {
+
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+
+  transform: translateX(4px);
+}
+
+.menu-item a.activo {
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #3b82f6
+  );
+
+  color: white;
+
+  box-shadow:
+    0 6px 16px rgba(37,99,235,.35);
+}
+
+//boton cerrar sesion
+.sidebar-footer {
+
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.logout-btn {
+
+  width: 100%;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background: rgba(255,255,255,0.04);
+
+  backdrop-filter: blur(8px);
+
+  color: #d1d5db;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: all .25s ease;
+}
+
+.logout-btn i {
+
+  font-size: 18px;
+
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn:hover {
+
+  background: rgba(239,68,68,0.15);
+
+  border-color: rgba(239,68,68,0.35);
+
+  color: #fca5a5;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(239,68,68,0.12);
+}
+
+.logout-btn:active {
+
+  transform: scale(0.98);
+}

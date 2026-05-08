@@ -1,10 +1,11 @@
-﻿<div class="dashboard">
-  <div class="header">
-    <h1>SoporteIA - Dashboard</h1>
-    <button (click)="cerrarSesion()">Cerrar sesion</button>
-  </div>
-  <div class="content">
-    <h2>Bienvenido al sistema</h2>
-    <p>Autenticacion exitosa</p>
-  </div>
+﻿<div class="layout">
+
+  <app-menu></app-menu>
+
+  <main>
+
+    <router-outlet></router-outlet>
+
+  </main>
+
 </div>

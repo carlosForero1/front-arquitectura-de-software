@@ -1,1 +1,94 @@
-<p>reportes works!</p>
+<div class="contenedor-reportes">
+
+  <div class="header-reportes">
+
+    <h1>
+      Reportes del sistema
+    </h1>
+
+  </div>
+
+  <div class="lista-reportes">
+
+    <div
+      class="reporte-card"
+      *ngFor="let reporte of reportes"
+    >
+
+      <div class="card-top">
+
+        <div class="tipo">
+
+          Tipo:
+          {{ reporte.tipo }}
+
+        </div>
+
+        <div
+          class="estado"
+          [class.solucionado]="reporte.solucionado"
+        >
+
+          {{
+            reporte.solucionado
+            ? 'Solucionado'
+            : 'Pendiente'
+          }}
+
+        </div>
+
+      </div>
+
+      <div class="usuario">
+
+        <i class="fi fi-rr-user"></i>
+
+        {{ reporte.usuario?.nombre }}
+
+      </div>
+
+      <p class="descripcion">
+
+        {{ reporte.descripcion }}
+
+      </p>
+
+      <div class="agente">
+
+        <h4>
+          Recomendación IA
+        </h4>
+
+        <p>
+          {{ reporte.recomendacionAgente }}
+        </p>
+
+      </div>
+
+      <div class="agente">
+
+        <h4>
+          Pasos sugeridos
+        </h4>
+
+        <p>
+          {{ reporte.pasosAgente }}
+        </p>
+
+      </div>
+
+      <div class="footer-card">
+
+        <span>
+
+          {{ reporte.tiempoCrea | date:'short' }}
+
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
