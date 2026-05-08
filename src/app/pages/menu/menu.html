@@ -1,33 +1,54 @@
 <div class="sidebar">
 
-  <div class="logo">
-    <h2>Panel Admin</h2>
-    <span>{{ perfil }}</span>
+  <div>
+
+    <div class="logo">
+      <h2>Panel Admin</h2>
+      <span>{{ perfil }}</span>
+    </div>
+
+    <ul class="menu">
+
+      @for(modulo of modulos; track modulo.nombre){
+
+        <li class="menu-item">
+
+          <a
+            [routerLink]="modulo.ruta"
+            routerLinkActive="activo"
+          >
+
+            <i [class]="modulo.icono"></i>
+
+            <span>
+              {{ modulo.nombre }}
+            </span>
+
+          </a>
+
+        </li>
+
+      }
+
+    </ul>
+
   </div>
 
-  <ul class="menu">
+ <div class="sidebar-footer">
 
-    @for(modulo of modulos; track modulo.nombre){
+  <button
+    class="logout-btn"
+    (click)="cerrarSesion()"
+  >
 
-      <li class="menu-item">
+    <i class="fi fi-rr-sign-out-alt"></i>
 
-        <a
-          [routerLink]="modulo.ruta"
-          routerLinkActive="activo"
-        >
+    <span>
+      Cerrar sesión
+    </span>
 
-          <i [class]="modulo.icono"></i>
+  </button>
 
-          <span>
-            {{ modulo.nombre }}
-          </span>
-
-        </a>
-
-      </li>
-
-    }
-
-  </ul>
+</div>
 
 </div>

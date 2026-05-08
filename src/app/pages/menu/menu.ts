@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -19,18 +19,27 @@ export class MenuComponent {
 
   authService = inject(AuthService);
 
+  router = inject(Router);
+
   modulos =
     this.authService.obtenerModulos();
 
-    ngOnInit() {
+  ngOnInit() {
 
-  const usuario =
-    this.authService.obtenerUsuario();
+    const usuario =
+      this.authService.obtenerUsuario();
 
-  this.perfil =
-    usuario?.menu?.perfil ?? '';
+    this.perfil =
+      usuario?.menu?.perfil ?? '';
 
-  this.modulos =
-    usuario?.menu?.modulos ?? [];
-}
+    this.modulos =
+      usuario?.menu?.modulos ?? [];
+  }
+
+  cerrarSesion() {
+
+    this.authService.cerrarSesion();
+
+    this.router.navigate(['/login']);
+  }
 }
