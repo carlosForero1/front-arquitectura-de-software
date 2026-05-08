@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
 
-  email = '';
+  usuario = '';
   password = '';
 
   error = '';
@@ -26,18 +26,10 @@ export class LoginComponent {
     this.cargando = true;
     this.error = '';
 
-    this.auth.login(this.email, this.password)
+    this.auth.login(this.usuario, this.password)
       .subscribe({
 
         next: (res) => {
-          this.auth.guardarToken(res.token);
-
-          // guardar datos usuario
-          localStorage.setItem('usuario', res.usuario);
-          localStorage.setItem('nombre', res.nombre);
-          localStorage.setItem('cargo', res.cargo);
-          localStorage.setItem('correo', res.correo);
-
           this.router.navigate(['/dashboard']);
           this.cargando = false;
         },
