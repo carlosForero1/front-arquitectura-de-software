@@ -5,8 +5,10 @@ from './pages/login/login.component';
 
 import { DashboardComponent }
 from './pages/dashboard/dashboard.component';
-  
-import { ReportesComponent }
+
+import {
+  ReportesComponent
+}
 from './pages/reportes/reportes.component';
 
 export const routes: Routes = [

@@ -1,48 +1,65 @@
 import {
-  HttpInterceptorFn
+
+HttpInterceptorFn
+
 }
-from '@angular/common/http';
+
+from
+'@angular/common/http';
 
 export const authInterceptor:
-HttpInterceptorFn =
-(req, next) => {
+HttpInterceptorFn = (
 
-  if(
-    req.url.includes(
-      '/autenticacion/login'
-    )
-  ){
+req,
 
-    return next(req);
+next
 
-  }
+) => {
 
-  const token =
+if (
 
-    typeof window !== 'undefined'
+req.url.includes(
+'/autenticacion/login'
+)
 
-      ? localStorage.getItem(
-          'token'
-        )
+) {
 
-      : null;
+return next(
+req
+);
 
-  if(token){
+}
 
-    req =
-      req.clone({
+const token =
 
-        setHeaders: {
+localStorage.getItem(
+'token'
+);
 
-          Authorization:
-            `Bearer ${token}`
+if (
 
-        }
+token
 
-      });
+) {
 
-  }
+req =
 
-  return next(req);
+req.clone({
+
+setHeaders: {
+
+Authorization:
+
+`Bearer ${token}`
+
+}
+
+});
+
+}
+
+return next(
+req
+);
 
 };

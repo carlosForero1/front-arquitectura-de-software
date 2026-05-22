@@ -57,12 +57,28 @@ export class LoginComponent {
 
       next: () => {
 
-        this.router.navigate([
-          '/dashboard'
-        ]);
+  const usuario =
+    this.auth.obtenerUsuario();
 
-        this.cargando = false;
-      },
+  const primeraRuta =
+
+    usuario
+      ?.menu
+      ?.modulos?.[0]
+      ?.ruta
+
+      ||
+
+      '/dashboard';
+
+  this.router.navigate([
+    primeraRuta
+  ]);
+
+  this.cargando =
+    false;
+
+},
 
       error: (err) => {
 
