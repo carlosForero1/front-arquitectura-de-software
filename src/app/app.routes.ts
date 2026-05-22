@@ -5,9 +5,9 @@ from './pages/login/login.component';
 
 import { DashboardComponent }
 from './pages/dashboard/dashboard.component';
-
+  
 import { ReportesComponent }
-from './pages/reportes/reportes';
+from './pages/reportes/reportes.component';
 
 export const routes: Routes = [
 
@@ -24,16 +24,11 @@ export const routes: Routes = [
 
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: DashboardComponent
+  },
 
-    children: [
-
-      {
-        path: 'reportes',
-        component: ReportesComponent
-      }
-
-    ]
+  {
+    path: 'reportes',
+    component: ReportesComponent
   }
-
 ];

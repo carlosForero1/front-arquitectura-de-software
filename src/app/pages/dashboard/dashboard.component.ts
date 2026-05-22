@@ -6,11 +6,10 @@ import {
   RouterOutlet
 } from '@angular/router';
 
-import { MenuComponent }
-from '../menu/menu';
 
 import { AuthService }
 from '../../services/auth.service';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +19,7 @@ from '../../services/auth.service';
   imports: [
     RouterOutlet,
     MenuComponent
+
   ],
 
   templateUrl: './dashboard.component.html',

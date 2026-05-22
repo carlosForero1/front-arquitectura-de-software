@@ -58,7 +58,7 @@ export class LoginComponent {
       next: () => {
 
         this.router.navigate([
-          '/dashboard/reportes'
+          '/dashboard'
         ]);
 
         this.cargando = false;
