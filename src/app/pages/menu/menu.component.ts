@@ -9,8 +9,8 @@ import { AuthService } from '../../services/auth.service';
   imports: [
     RouterModule
   ],
-  templateUrl: './menu.html',
-  styleUrls: ['./menu.scss']
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss']
 })
 
 export class MenuComponent {
