@@ -9,18 +9,12 @@ import {
 
 import { AuthService }
 from '../../services/auth.service';
-import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-dashboard',
 
   standalone: true,
 
-  imports: [
-    RouterOutlet,
-    MenuComponent
-
-  ],
 
   templateUrl: './dashboard.component.html',
 

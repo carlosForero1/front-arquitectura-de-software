@@ -151,8 +151,10 @@ inicializarFormulario(): void {
           respuesta
         ) => {
 
+         
           this.reportes =
             [...respuesta];
+             console.log(this.reportes)
 
           this.cdr.detectChanges();
 

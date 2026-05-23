@@ -1,21 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { LoginComponent }
-from './pages/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
+import { MainLayoutComponent } from './pages/menu/main-layout.component';
 
-import { DashboardComponent }
-from './pages/dashboard/dashboard.component';
-  
-import { ReportesComponent }
-from './pages/reportes/reportes.component';
 
 export const routes: Routes = [
-
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
 
   {
     path: 'login',
@@ -23,12 +14,32 @@ export const routes: Routes = [
   },
 
   {
-    path: 'dashboard',
-    component: DashboardComponent
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+
+      {
+        path: 'reportes',
+        component: ReportesComponent
+      },
+
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+
+    ]
   },
 
   {
-    path: 'reportes',
-    component: ReportesComponent
+    path: '**',
+    redirectTo: 'login'
   }
+
 ];

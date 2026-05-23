@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="container py-2">
 
   <!-- HEADER -->
 
@@ -71,6 +71,7 @@
               <th>Descripción</th>
 
               <th>Estado</th>
+              <th>Nivel Peligro</th>
 
               <th
                 class="text-center"
@@ -140,6 +141,25 @@
                   ? 'Solucionado'
 
                   : 'Pendiente' }}
+
+                </span>
+
+              </td>
+               <td>
+
+                <span
+
+                  class="badge rounded-pill"
+
+                  [ngClass]="
+                    reporte.nivelpeligro
+                    ? 'bg-success'
+                    : 'bg-warning text-dark'
+                  "
+
+                >
+
+                  {{ reporte.nivelpeligro}}
 
                 </span>
 
