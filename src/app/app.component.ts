@@ -12,8 +12,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 
   imports: [
     RouterOutlet,
-    CommonModule,
-    MenuComponent
+    CommonModule
   ],
 
   templateUrl: './app.component.html'

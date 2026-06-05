@@ -1,21 +1,16 @@
-﻿@if(router.url !== '/login'){
-
-<div class="layout">
-
-  <app-menu></app-menu>
-
-  <main>
-
-    <router-outlet></router-outlet>
-
-  </main>
-
-</div>
-
-}
+﻿
 
 @if(router.url === '/login'){
 
 <router-outlet></router-outlet>
+
+}
+
+@if(router.url !== '/login'){
+
+
+    <router-outlet></router-outlet>
+
+  
 
 }
