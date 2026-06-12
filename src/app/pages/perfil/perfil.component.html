@@ -1,0 +1,79 @@
+<div class="container-fluid">
+
+  <div class="card shadow-sm">
+
+    <div class="card-header">
+
+      <h4 class="mb-0">
+        Perfiles y Permisos
+      </h4>
+
+    </div>
+
+    <div class="card-body">
+
+      <div class="table-responsive">
+
+        <table class="table table-bordered table-hover">
+
+          <thead>
+
+            <tr>
+
+              <th>Perfil</th>
+
+              <th>Módulo</th>
+
+              <th>Ruta</th>
+
+              <th>Permiso</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let item of perfilesModulos">
+
+              <td>
+
+                {{ item.perfil.nombre }}
+
+              </td>
+
+              <td>
+
+                {{ item.modulo.nombre }}
+
+              </td>
+
+              <td>
+
+                {{ item.modulo.ruta }}
+
+              </td>
+
+              <td>
+
+                <span class="badge bg-primary">
+
+                  {{ item.permiso.nombre }}
+
+                </span>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

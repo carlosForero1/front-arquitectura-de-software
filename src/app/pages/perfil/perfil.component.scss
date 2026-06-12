@@ -1,0 +1,34 @@
+:host{
+  display:block;
+  width:100%;
+}
+
+.container{
+  max-width:none;
+  width:100%;
+
+  margin:0;
+  padding:0;
+}
+
+.card{
+  border-radius:20px;
+}
+
+.table{
+  margin-bottom:0;
+}
+
+.table td{
+  vertical-align:middle;
+}
+
+.descripcion{
+  max-width:350px;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+}

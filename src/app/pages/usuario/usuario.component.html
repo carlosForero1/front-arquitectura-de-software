@@ -1,0 +1,386 @@
+<div class="container-fluid">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+      <h2 class="fw-bold mb-0">
+        Usuarios
+      </h2>
+
+      <small class="text-muted">
+        Total: {{ usuarios.length }}
+      </small>
+
+    </div>
+
+    <button
+      class="btn btn-primary"
+      (click)="abrirModalCrear()">
+
+      <i class="bi bi-plus-circle me-1"></i>
+      Crear Usuario
+
+    </button>
+
+  </div>
+
+  <div class="card shadow-sm border-0">
+
+    <div class="card-body">
+
+      <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+          <thead class="table-light">
+
+            <tr>
+
+              <th>Nombre</th>
+
+              <th>Cargo</th>
+
+              <th>Usuario</th>
+
+              <th>Perfil</th>
+
+              <th width="220">
+                Acciones
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr *ngIf="usuarios.length === 0">
+
+              <td colspan="6" class="text-center text-muted py-4">
+                No hay usuarios registrados
+              </td>
+
+            </tr>
+
+            <tr *ngFor="let usuario of usuarios">
+
+              <td>
+                {{ usuario.nombre }}
+              </td>
+
+              <td>
+                {{ usuario.cargo }}
+              </td>
+
+              <td>
+                {{ usuario.usuario }}
+              </td>
+
+              <td>
+
+                <span class="badge bg-secondary">
+
+                  {{ usuario.perfilNombre || 'Sin perfil' }}
+
+                </span>
+
+              </td>
+
+              <td>
+
+                <button
+                  class="btn btn-info btn-sm me-2"
+                  (click)="verUsuario(usuario)">
+
+                  Ver
+
+                </button>
+
+                <button
+                  class="btn btn-warning btn-sm me-2"
+                  (click)="editar(usuario)">
+
+                  Editar
+
+                </button>
+
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="eliminar(usuario.id)">
+
+                  Eliminar
+
+                </button>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL CREAR / EDITAR -->
+
+<div
+  class="modal fade"
+  id="modalUsuario"
+  tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title">
+
+          {{ idEditar === 0 ? 'Crear Usuario' : 'Editar Usuario' }}
+
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal">
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <form [formGroup]="formulario">
+
+          <div class="mb-3">
+
+            <label class="form-label">
+
+              Nombre
+
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="nombre">
+
+          </div>
+
+          <div class="mb-3">
+
+            <label class="form-label">
+
+              Cargo
+
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="cargo">
+
+          </div>
+
+          <div class="mb-3">
+
+            <label class="form-label">
+
+              Correo
+
+            </label>
+
+            <input
+              type="email"
+              class="form-control"
+              formControlName="correo">
+
+          </div>
+
+          <div class="mb-3">
+
+            <label class="form-label">
+
+              Usuario
+
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              formControlName="usuario">
+
+          </div>
+
+          <div class="mb-3">
+
+            <label class="form-label">
+
+              Perfil
+
+            </label>
+
+            <select
+              class="form-select"
+              formControlName="perfilId">
+
+              <option [ngValue]="null">
+
+                Seleccione un perfil
+
+              </option>
+
+              <option
+                *ngFor="let perfil of perfiles"
+                [value]="perfil.id">
+
+                {{ perfil.nombre }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-secondary"
+          data-bs-dismiss="modal">
+
+          Cancelar
+
+        </button>
+
+        <button
+          class="btn btn-primary"
+          (click)="guardar()">
+
+          Guardar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL VER USUARIO -->
+
+<div
+  class="modal fade"
+  id="modalVer"
+  tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title">
+
+          Información del Usuario
+
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal">
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="mb-3">
+
+          <strong>Nombre:</strong>
+
+          <div>
+            {{ usuarioSeleccionado?.nombre }}
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+
+          <strong>Cargo:</strong>
+
+          <div>
+            {{ usuarioSeleccionado?.cargo }}
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+
+          <strong>Correo:</strong>
+
+          <div>
+            {{ usuarioSeleccionado?.correo }}
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+
+          <strong>Usuario:</strong>
+
+          <div>
+            {{ usuarioSeleccionado?.usuario }}
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+
+          <strong>Perfil:</strong>
+
+          <div>
+
+            <span class="badge bg-primary">
+
+              {{ usuarioSeleccionado?.perfilNombre || 'Sin perfil' }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-secondary"
+          data-bs-dismiss="modal">
+
+          Cerrar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
