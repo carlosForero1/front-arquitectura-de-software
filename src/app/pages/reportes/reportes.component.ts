@@ -152,8 +152,7 @@ export class ReportesComponent
         ) => {
 
 
-          this.reportes =
-            [...respuesta];
+  this.reportes = respuesta.sort((a, b) => b.id - a.id);
 
           this.cdr.detectChanges();
 

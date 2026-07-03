@@ -303,6 +303,8 @@ eliminar(id: number): void {
           this.perfiles.filter(
             perfil => perfil.id !== id
           );
+         
+          this.cdr.detectChanges();
 
       },
 
