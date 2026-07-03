@@ -1,0 +1,75 @@
+body{
+    background:#f4f6f9;
+}
+
+.login-section{
+
+    min-height:calc(100vh - 70px);
+
+    display:flex;
+
+    align-items:center;
+
+    background:linear-gradient(135deg,#eef3ff,#f8f9fa);
+
+}
+
+.login-card{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:18px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+.logo-circle{
+
+    width:80px;
+
+    height:80px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:36px;
+
+    background:#0d6efd;
+
+    color:white;
+
+}
+
+.form-control{
+
+    height:48px;
+
+    border-radius:10px;
+
+}
+
+.btn{
+
+    height:48px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
+
+.navbar-brand{
+
+    font-size:1.3rem;
+
+}

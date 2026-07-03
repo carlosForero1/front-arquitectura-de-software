@@ -6,4 +6,8 @@ export interface Usuario {
   usuario: string;
   perfilId:number;
   perfilNombre:string;
+  activo:boolean;
+  equipo:string;
+  ultimaConexion:string;
+  estado: boolean;
 }

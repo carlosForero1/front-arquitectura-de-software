@@ -11,79 +11,160 @@ import {
 import {
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  FormsModule
 } from '@angular/forms';
 
 import { UsuarioService } from '../../services/usuario.service';
-import { Usuario } from '../../services/modelos/Usuario.modelo';
 import { PerfilService } from '../../services/perfil.service';
+
+import { Usuario } from '../../services/modelos/Usuario.modelo';
 
 declare var bootstrap: any;
 
 @Component({
+
   selector: 'app-usuario',
+
   standalone: true,
+
   imports: [
+
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
+
   ],
+
   templateUrl: './usuario.component.html',
+
   styleUrl: './usuario.component.scss'
+
 })
+
 export class UsuarioComponent implements OnInit {
+
+  /********************************************
+   * TABLAS
+   ********************************************/
 
   usuarios: Usuario[] = [];
 
+  usuariosFiltrados: Usuario[] = [];
+
   perfiles: any[] = [];
+
+  actividades: any[] = [];
+
+  permisos: any = {};
+
+
+  /********************************************
+   * FORMULARIOS
+   ********************************************/
 
   formulario!: FormGroup;
 
+
+  /********************************************
+   * OBJETOS
+   ********************************************/
+
   usuarioSeleccionado: Usuario | null = null;
+
+
+  /********************************************
+   * VARIABLES
+   ********************************************/
 
   idEditar = 0;
 
+  nuevoPerfil: number | null = null;
+
+  buscarTexto = '';
+
+  perfilSeleccionado = '';
+
+  estadoSeleccionado: any = '';
+
+
+
+  /********************************************
+   * CONSTRUCTOR
+   ********************************************/
+
   constructor(
+
     private usuarioService: UsuarioService,
-    private perfilServicio: PerfilService,
+
+    private perfilService: PerfilService,
+
     private fb: FormBuilder,
+
     private cdr: ChangeDetectorRef
-  ) {}
+
+  ) {
+
+  }
+
+
+
+  /********************************************
+   * INIT
+   ********************************************/
 
   ngOnInit(): void {
 
     this.formulario = this.fb.group({
 
       nombre: [''],
+
       cargo: [''],
+
       correo: [''],
+
       usuario: [''],
+
       perfilId: [null]
 
     });
 
-    this.listarUsuarios();
-    this.listarPerfiles();
+    this.cargarUsuarios();
+
+    this.cargarPerfiles();
 
   }
 
-  listarUsuarios(): void {
+
+
+  /********************************************
+   * USUARIOS
+   ********************************************/
+
+  cargarUsuarios(): void {
 
     this.usuarioService
       .listar()
       .subscribe({
 
-        next: (data) => {
+        next: (respuesta) => {
 
-          this.usuarios = data;
+          this.usuarios = respuesta;
+
+          this.usuariosFiltrados = [...respuesta];
+
           this.cdr.detectChanges();
 
         },
 
-        error: (err) => {
+        error: (error) => {
 
           console.error(
-            'Error listando usuarios',
-            err
+
+            'Error cargando usuarios',
+
+            error
+
           );
 
         }
@@ -92,24 +173,34 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-  listarPerfiles(): void {
 
-    this.perfilServicio
+
+  /********************************************
+   * PERFILES
+   ********************************************/
+
+  cargarPerfiles(): void {
+
+    this.perfilService
       .listarPerfiles()
       .subscribe({
 
-        next: (data) => {
+        next: (respuesta) => {
 
-          this.perfiles = data;
-            this.cdr.detectChanges();
+          this.perfiles = respuesta;
+
+          this.cdr.detectChanges();
 
         },
 
-        error: (err) => {
+        error: (error) => {
 
           console.error(
-            'Error listando perfiles',
-            err
+
+            'Error cargando perfiles',
+
+            error
+
           );
 
         }
@@ -118,161 +209,160 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-  abrirModalCrear(): void {
+  /********************************************
+ * FILTROS
+ ********************************************/
 
-    this.idEditar = 0;
+filtrarUsuarios(): void {
 
-    this.formulario.reset();
+  this.usuariosFiltrados = this.usuarios.filter(usuario => {
 
-    this.formulario.patchValue({
-      perfilId: null
-    });
+    const coincideTexto =
 
-    const modal =
-      new bootstrap.Modal(
-        document.getElementById('modalUsuario')
-      );
+      this.buscarTexto === '' ||
 
-    modal.show();
+      usuario.nombre?.toLowerCase().includes(this.buscarTexto.toLowerCase()) ||
 
-  }
+      usuario.usuario?.toLowerCase().includes(this.buscarTexto.toLowerCase());
 
-  editar(usuario: Usuario): void {
+    const coincidePerfil =
 
-    this.idEditar = usuario.id;
+      this.perfilSeleccionado === '' ||
 
-    this.formulario.patchValue({
+      usuario.perfilNombre === this.perfilSeleccionado;
 
-      nombre: usuario.nombre,
-      cargo: usuario.cargo,
-      correo: usuario.correo,
-      usuario: usuario.usuario,
-      perfilId: (usuario as any).perfilId
+    const coincideEstado =
 
-    });
 
-    const modal =
-      new bootstrap.Modal(
-        document.getElementById('modalUsuario')
-      );
+      this.estadoSeleccionado === '' ||
 
-    modal.show();
+      usuario.estado == this.estadoSeleccionado;
+    return (
 
-  }
+      coincideTexto &&
+      coincidePerfil &&
+      coincideEstado
 
-  verUsuario(usuario: Usuario): void {
+    );
 
-    this.usuarioSeleccionado = usuario;
+  });
 
-    const modal =
-      new bootstrap.Modal(
-        document.getElementById('modalVer')
-      );
+}
 
-    modal.show();
 
-  }
+/********************************************
+ * MODAL CREAR
+ ********************************************/
 
-  guardar(): void {
+abrirModalCrear(): void {
 
-    const datos = this.formulario.value;
+  this.idEditar = 0;
 
-    if (this.idEditar === 0) {
+  this.formulario.reset();
 
-      this.usuarioService
-        .crear(datos)
-        .subscribe({
+  this.formulario.patchValue({
 
-          next: () => {
+    perfilId: null
 
-            this.listarUsuarios();
+  });
 
-            bootstrap.Modal
-              .getInstance(
-                document.getElementById('modalUsuario')
-              )
-              ?.hide();
+  const modal = new bootstrap.Modal(
 
-            this.formulario.reset();
+    document.getElementById("modalUsuario")
 
-          },
+  );
 
-          error: (err) => {
+  modal.show();
 
-            console.error(
-              'Error creando usuario',
-              err
-            );
+}
 
-          }
 
-        });
+/********************************************
+ * MODAL EDITAR
+ ********************************************/
 
-    } else {
+editar(usuario: Usuario): void {
 
-      this.usuarioService
-        .editar(
-          this.idEditar,
-          datos
-        )
-        .subscribe({
+  this.idEditar = usuario.id;
 
-          next: () => {
+  this.usuarioSeleccionado = usuario;
 
-            this.listarUsuarios();
+  this.formulario.patchValue({
 
-            bootstrap.Modal
-              .getInstance(
-                document.getElementById('modalUsuario')
-              )
-              ?.hide();
+    nombre: usuario.nombre,
 
-          },
+    cargo: usuario.cargo,
 
-          error: (err) => {
+    correo: usuario.correo,
 
-            console.error(
-              'Error editando usuario',
-              err
-            );
+    usuario: usuario.usuario,
 
-          }
+    perfilId: (usuario as any).perfilId
 
-        });
+  });
 
-    }
+  const modal = new bootstrap.Modal(
 
-  }
+    document.getElementById("modalUsuario")
 
-  eliminar(id: number): void {
+  );
 
-    const confirmar =
-      confirm(
-        '¿Desea eliminar este usuario?'
-      );
+  modal.show();
 
-    if (!confirmar) {
-      return;
-    }
+}
+
+
+/********************************************
+ * MODAL VER
+ ********************************************/
+
+verUsuario(usuario: Usuario): void {
+
+  this.usuarioSeleccionado = usuario;
+
+  const modal = new bootstrap.Modal(
+
+    document.getElementById("modalVer")
+
+  );
+
+  modal.show();
+
+}
+
+
+/********************************************
+ * CREAR / EDITAR
+ ********************************************/
+
+guardar(): void {
+
+  const datos = this.formulario.value;
+
+  if (this.idEditar == 0) {
 
     this.usuarioService
-      .eliminar(id)
+
+      .crear(datos)
+
       .subscribe({
 
         next: () => {
 
-          this.usuarios =
-            this.usuarios.filter(
-              usuario => usuario.id !== id
-            );
+          this.cerrarModalUsuario();
+
+          this.cargarUsuarios();
 
         },
 
-        error: (err) => {
+        error: error => {
 
           console.error(
-            'Error eliminando usuario',
-            err
+
+            "Error creando usuario",
+
+            error
+
           );
 
         }
@@ -280,5 +370,415 @@ export class UsuarioComponent implements OnInit {
       });
 
   }
+
+  else {
+
+    this.usuarioService
+
+      .editar(
+
+        this.idEditar,
+
+        datos
+
+      )
+
+      .subscribe({
+
+        next: () => {
+
+          this.cerrarModalUsuario();
+
+          this.cargarUsuarios();
+
+        },
+
+        error: error => {
+
+          console.error(
+
+            "Error editando usuario",
+
+            error
+
+          );
+
+        }
+
+      });
+
+  }
+
+}
+
+
+/********************************************
+ * ELIMINAR
+ ********************************************/
+
+eliminar(id: number): void {
+
+  const confirmar = confirm(
+
+    "¿Desea eliminar este usuario?"
+
+  );
+
+  if (!confirmar) {
+
+    return;
+
+  }
+
+  this.usuarioService
+
+    .eliminar(id)
+
+    .subscribe({
+
+      next: () => {
+
+        this.cargarUsuarios();
+
+      },
+
+      error: error => {
+
+        console.error(
+
+          "Error eliminando usuario",
+
+          error
+
+        );
+
+      }
+
+    });
+
+}
+
+
+/********************************************
+ * CERRAR MODAL
+ ********************************************/
+
+cerrarModalUsuario(): void {
+
+  this.formulario.reset();
+
+  bootstrap.Modal
+
+    .getInstance(
+
+      document.getElementById("modalUsuario")
+
+    )
+
+    ?.hide();
+
+}
+/********************************************
+ * CAMBIAR PERFIL
+ ********************************************/
+
+abrirModalPerfil(usuario: Usuario): void {
+
+  this.usuarioSeleccionado = usuario;
+
+  this.nuevoPerfil = (usuario as any).perfilId;
+
+  const modal = new bootstrap.Modal(
+
+    document.getElementById("modalPerfil")
+
+  );
+
+  modal.show();
+
+}
+
+
+guardarPerfil(): void {
+
+  if (this.usuarioSeleccionado == null) {
+    return;
+  }
+
+  if (this.nuevoPerfil == null) {
+    return;
+  }
+
+  this.usuarioService
+
+    .editarPerfil(
+
+      this.usuarioSeleccionado.id,
+
+      this.nuevoPerfil
+
+    )
+
+    .subscribe({
+
+      next: () => {
+
+        this.cerrarModalPerfil();
+
+        this.cargarUsuarios();
+
+      },
+
+      error: error => {
+
+        console.error(
+
+          "Error cambiando perfil",
+
+          error
+
+        );
+
+      }
+
+    });
+
+}
+
+
+/********************************************
+ * CAMBIAR ESTADO
+ ********************************************/
+
+cambiarEstado(usuario: Usuario): void {
+
+  const nuevoEstado = !usuario.activo;
+
+  this.usuarioService
+
+    .cambiarEstado(
+
+      usuario.id,
+
+      nuevoEstado
+
+    )
+
+    .subscribe({
+
+      next: () => {
+
+        this.cargarUsuarios();
+
+      },
+
+      error: error => {
+
+        console.error(
+
+          "Error cambiando estado",
+
+          error
+
+        );
+
+      }
+
+    });
+
+}
+
+
+/********************************************
+ * VER PERMISOS
+ ********************************************/
+
+verPermisos(usuario: Usuario): void {
+
+  this.usuarioSeleccionado = usuario;
+
+  this.perfilService
+
+    .consultarPermisos(
+
+      (usuario as any).perfilId
+
+    )
+
+    .subscribe({
+
+      next: (respuesta: any) => {
+
+        this.permisos = respuesta;
+
+        const modal = new bootstrap.Modal(
+
+          document.getElementById("modalPermisos")
+
+        );
+
+        modal.show();
+
+      },
+
+      error: error => {
+
+        console.error(
+
+          "Error consultando permisos",
+
+          error
+
+        );
+
+      }
+
+    });
+
+}
+
+
+/********************************************
+ * VER ACTIVIDAD
+ ********************************************/
+
+verActividad(usuario: Usuario): void {
+
+  this.usuarioSeleccionado = usuario;
+
+  this.usuarioService
+
+    .listarActividad(
+
+      usuario.id
+
+    )
+
+    .subscribe({
+
+      next: respuesta => {
+
+        this.actividades = respuesta;
+
+        const modal = new bootstrap.Modal(
+
+          document.getElementById("modalActividad")
+
+        );
+
+        modal.show();
+
+      },
+
+      error: error => {
+
+        console.error(
+
+          "Error obteniendo actividad",
+
+          error
+
+        );
+
+      }
+
+    });
+
+}
+
+
+/********************************************
+ * CERRAR MODALES
+ ********************************************/
+
+cerrarModalPerfil(): void {
+
+  bootstrap.Modal
+
+    .getInstance(
+
+      document.getElementById("modalPerfil")
+
+    )
+
+    ?.hide();
+
+}
+
+
+cerrarModalPermisos(): void {
+
+  bootstrap.Modal
+
+    .getInstance(
+
+      document.getElementById("modalPermisos")
+
+    )
+
+    ?.hide();
+
+}
+
+
+cerrarModalActividad(): void {
+
+  bootstrap.Modal
+
+    .getInstance(
+
+      document.getElementById("modalActividad")
+
+    )
+
+    ?.hide();
+
+}
+
+
+/********************************************
+ * MÉTODOS AUXILIARES
+ ********************************************/
+
+recargar(): void {
+
+  this.cargarUsuarios();
+
+}
+
+
+limpiarFiltros(): void {
+
+  this.buscarTexto = '';
+
+  this.perfilSeleccionado = '';
+
+  this.estadoSeleccionado = '';
+
+  this.usuariosFiltrados = [...this.usuarios];
+
+}
+
+
+obtenerBadgeEstado(activo: boolean): string {
+
+  return activo
+
+    ? 'bg-success'
+
+    : 'bg-danger';
+
+}
+
+
+obtenerTextoEstado(activo: boolean): string {
+
+  return activo
+
+    ? 'Activo'
+
+    : 'Inactivo';
+
+}
 
 }

@@ -1,6 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { UsuarioRegistro } from './modelos/usuario-registro.model';
+import { UsuarioRespuestaAgente } from './modelos/usuario-respuesta-agente.model';
 
 @Injectable({
   providedIn: 'root'
@@ -121,5 +123,17 @@ export class AuthService {
   obtenerUsuario() {
 
     return this.usuario();
+  }
+
+    registroUsuario(data: UsuarioRegistro): Observable<UsuarioRespuestaAgente> {
+
+    return this.http.post<UsuarioRespuestaAgente>(
+
+      `${this.apiUrl}/registro/usuario`,
+
+      data
+
+    );
+
   }
 }

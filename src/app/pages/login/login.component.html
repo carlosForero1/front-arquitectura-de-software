@@ -1,46 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container">
-
-        <a class="navbar-brand fw-bold" routerLink="/home">
-            🛡️ AI Security Agent
+        <a class="navbar-brand fw-bold" href="/home">
+            AI Security Agent
         </a>
 
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#menu">
-
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-
-        <div class="collapse navbar-collapse" id="menu">
-
-            <ul class="navbar-nav ms-auto align-items-center">
-
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/home">
-                        Inicio
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/funcionamiento">
-                        Funcionamiento
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/evolucion">
-                        Evolución
-                    </a>
-                </li>
-
-            </ul>
-
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/login">Inicio Sesion</a>
+            <a class="nav-link" href="/funcionamiento">Funcionamiento</a>
+            <a class="nav-link" href="/evolucion">Evolución</a>
         </div>
-
     </div>
 </nav>
 
@@ -122,7 +90,7 @@
                         </p>
 
                         <a
-                            routerLink="/registro"
+                            href="/registro"
                             class="btn btn-outline-primary w-100">
 
                             Crear una cuenta
