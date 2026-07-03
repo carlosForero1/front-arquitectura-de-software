@@ -1,79 +1,589 @@
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
-  <div class="card shadow-sm">
+    <!-- ENCABEZADO -->
 
-    <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-      <h4 class="mb-0">
-        Perfiles y Permisos
-      </h4>
+        <div>
 
-    </div>
+            <h2 class="fw-bold">
 
-    <div class="card-body">
+                Gestión de Perfiles
 
-      <div class="table-responsive">
+            </h2>
 
-        <table class="table table-bordered table-hover">
+            <small class="text-muted">
 
-          <thead>
+                Administra las políticas de seguridad del sistema.
 
-            <tr>
+            </small>
 
-              <th>Perfil</th>
+        </div>
 
-              <th>Módulo</th>
+        <button
+                class="btn btn-primary"
+                (click)="abrirCrearPerfil()">
 
-              <th>Ruta</th>
+            <i class="bi bi-plus-circle"></i>
 
-              <th>Permiso</th>
+            Nuevo Perfil
 
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            <tr *ngFor="let item of perfilesModulos">
-
-              <td>
-
-                {{ item.perfil.nombre }}
-
-              </td>
-
-              <td>
-
-                {{ item.modulo.nombre }}
-
-              </td>
-
-              <td>
-
-                {{ item.modulo.ruta }}
-
-              </td>
-
-              <td>
-
-                <span class="badge bg-primary">
-
-                  {{ item.permiso.nombre }}
-
-                </span>
-
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
+        </button>
 
     </div>
 
-  </div>
+    <!-- BUSCADOR -->
+
+    <div class="card shadow-sm border-0 mb-3">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <input
+                            class="form-control"
+                            placeholder="Buscar perfil..."
+                            [(ngModel)]="busqueda">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TABLA -->
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Nombre</th>
+
+                        <th>Estado</th>
+
+                        <th width="300">
+
+                            Acciones
+
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr
+                            *ngFor="let perfil of perfilesFiltrados()">
+
+                        <td>
+
+                            {{perfil.id}}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{perfil.nombre}}
+
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            <span
+                                    class="badge bg-success">
+
+                                Activo
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                    class="btn btn-info btn-sm me-2"
+                                    (click)="verPermisos(perfil)">
+
+                                <i class="bi bi-shield-lock"></i>
+
+                                Permisos
+
+                            </button>
+
+                            <button
+                                    class="btn btn-warning btn-sm me-2"
+                                    (click)="editar(perfil)">
+
+                                <i class="bi bi-pencil"></i>
+
+                                Editar
+
+                            </button>
+
+                            <button
+                                    class="btn btn-danger btn-sm"
+                                    (click)="eliminar(perfil.id)">
+
+                                <i class="bi bi-trash"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+        class="modal fade"
+        id="modalPerfil"
+        tabindex="-1">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h4>
+
+                    {{idEditar==0 ? 'Crear Perfil':'Editar Perfil'}}
+
+                </h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+
+                    <label>
+
+                        Nombre
+
+                    </label>
+
+                    <input
+                            class="form-control"
+                            [(ngModel)]="perfil.nombre">
+
+                </div>
+
+                <hr>
+
+                <h5>
+
+                    Permisos
+
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.usoUSB">
+
+                            <label>
+
+                                Uso USB
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.dispositivosExternos">
+
+                            <label>
+
+                                Dispositivos Externos
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.clonado">
+
+                            <label>
+
+                                Clonado
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.clonadoMasivo">
+
+                            <label>
+
+                                Clonado Masivo
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.permisoDescargas">
+
+                            <label>
+
+                                Descargas
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.usoInternet">
+
+                            <label>
+
+                                Internet
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.redesSociales">
+
+                            <label>
+
+                                Redes Sociales
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.streaming">
+
+                            <label>
+
+                                Streaming
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.usoCmd">
+
+                            <label>
+
+                                CMD
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.powerShell">
+
+                            <label>
+
+                                PowerShell
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.analisisVirusSimple">
+
+                            <label>
+
+                                Antivirus Simple
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="perfil.permisosManejo.analisisVirusCompleto">
+
+                            <label>
+
+                                Antivirus Completo
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                        class="btn btn-success"
+                        (click)="guardar()">
+
+                    Guardar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+        class="modal fade"
+        id="modalPermisos"
+        tabindex="-1">
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h4>
+
+                    {{perfilSeleccionado?.nombre}}
+
+                </h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <div class="card border-success">
+
+                            <div class="card-header bg-success text-white">
+
+                                Dispositivos
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <p>
+
+                                    USB
+
+                                    <span
+                                            class="float-end">
+
+{{perfilSeleccionado?.permisosManejo?.usoUSB ? '✅':'❌'}}
+
+                                    </span>
+
+                                </p>
+
+                                <p>
+
+                                    Dispositivos externos
+
+                                    <span class="float-end">
+
+{{perfilSeleccionado?.permisosManejo?.dispositivosExternos ? '✅':'❌'}}
+
+                                    </span>
+
+                                </p>
+
+                                <p>
+
+                                    Clonado
+
+                                    <span class="float-end">
+
+{{perfilSeleccionado?.permisosManejo?.clonado ? '✅':'❌'}}
+
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="card border-primary">
+
+                            <div class="card-header bg-primary text-white">
+
+                                Internet
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <p>Internet <span class="float-end">{{perfilSeleccionado?.permisosManejo?.usoInternet ? '✅':'❌'}}</span></p>
+
+                                <p>Descargas <span class="float-end">{{perfilSeleccionado?.permisosManejo?.permisoDescargas ? '✅':'❌'}}</span></p>
+
+                                <p>Redes Sociales <span class="float-end">{{perfilSeleccionado?.permisosManejo?.redesSociales ? '✅':'❌'}}</span></p>
+
+                                <p>Streaming <span class="float-end">{{perfilSeleccionado?.permisosManejo?.streaming ? '✅':'❌'}}</span></p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="card border-warning">
+
+                            <div class="card-header bg-warning">
+
+                                Terminal
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <p>CMD <span class="float-end">{{perfilSeleccionado?.permisosManejo?.usoCmd ? '✅':'❌'}}</span></p>
+
+                                <p>PowerShell <span class="float-end">{{perfilSeleccionado?.permisosManejo?.powerShell ? '✅':'❌'}}</span></p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="card border-danger">
+
+                            <div class="card-header bg-danger text-white">
+
+                                Antivirus
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <p>Simple <span class="float-end">{{perfilSeleccionado?.permisosManejo?.analisisVirusSimple ? '✅':'❌'}}</span></p>
+
+                                <p>Completo <span class="float-end">{{perfilSeleccionado?.permisosManejo?.analisisVirusCompleto ? '✅':'❌'}}</span></p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>

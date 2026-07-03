@@ -20,9 +20,8 @@ export class PerfilService {
   ) { }
 
   /********************************************
-   * LISTAR PERFILES
+   * LISTA SIMPLE (DTO)
    ********************************************/
-
   listarPerfiles(): Observable<any[]> {
 
     return this.http.get<any[]>(
@@ -33,11 +32,22 @@ export class PerfilService {
 
   }
 
+  /********************************************
+   * LISTA COMPLETA
+   ********************************************/
+  listarPerfilesCompletos(): Observable<any[]> {
+
+    return this.http.get<any[]>(
+
+      `${this.apiUrl}/listarPerfiles`
+
+    );
+
+  }
 
   /********************************************
    * CONSULTAR PERFIL POR ID
    ********************************************/
-
   obtenerPerfil(
     id: number
   ): Observable<any> {
@@ -50,18 +60,69 @@ export class PerfilService {
 
   }
 
-
   /********************************************
-   * CONSULTAR PERMISOS
+   * CREAR PERFIL
    ********************************************/
-
-  consultarPermisos(
-    idPerfil: number
+  crearPerfil(
+    perfil: any
   ): Observable<any> {
 
-    return this.http.get<any>(
+    return this.http.post<any>(
 
-      `${this.apiUrl}/${idPerfil}/permisos`
+      this.apiUrl,
+
+      perfil
+
+    );
+
+  }
+
+  /********************************************
+   * EDITAR PERFIL
+   ********************************************/
+  actualizarPerfil(
+    id: number,
+    perfil: any
+  ): Observable<any> {
+
+    return this.http.put<any>(
+
+      `${this.apiUrl}/${id}`,
+
+      perfil
+
+    );
+
+  }
+
+  /********************************************
+   * ACTUALIZAR PERMISOS
+   ********************************************/
+  actualizarPermisos(
+    id: number,
+    perfil: any
+  ): Observable<any> {
+
+    return this.http.put<any>(
+
+      `${this.apiUrl}/${id}/permisos`,
+
+      perfil
+
+    );
+
+  }
+
+  /********************************************
+   * ELIMINAR PERFIL
+   ********************************************/
+  eliminarPerfil(
+    id: number
+  ): Observable<any> {
+
+    return this.http.delete(
+
+      `${this.apiUrl}/${id}`
 
     );
 

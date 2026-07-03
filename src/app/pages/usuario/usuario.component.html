@@ -79,25 +79,6 @@
 
         </div>
 
-        <!-- Estado -->
-
-        <div class="col-md-2">
-          <label class="form-label fw-semibold">
-            Estado
-          </label>
-          <select class="form-select" [(ngModel)]="estadoSeleccionado">
-            <option [ngValue]="''">
-              Todos
-            </option>
-            <option [ngValue]="true">
-              Activos
-            </option>
-            <option [ngValue]="false">
-              Inactivos
-            </option>
-          </select>
-        </div>
-
         <div class="col-md-2 d-flex align-items-end">
 
           <button class="btn btn-outline-primary w-100" (click)="filtrarUsuarios()">
@@ -171,12 +152,6 @@
               <td>
 
                 {{usuario.usuario}}
-
-              </td>
-
-              <td>
-
-                {{usuario.cargo}}
 
               </td>
 
@@ -294,14 +269,6 @@
               </label>
 
               <input type="text" class="form-control" formControlName="nombre">
-            </div>
-
-            <div class="col-md-6 mb-3">
-              <label class="form-label">
-                Cargo
-              </label>
-
-              <input type="text" class="form-control" formControlName="cargo">
             </div>
 
             <div class="col-md-6 mb-3">
@@ -436,17 +403,7 @@
 
           </div>
 
-          <div class="col-md-6 mb-3">
-
-            <strong>Cargo</strong>
-
-            <div>
-
-              {{ usuarioSeleccionado?.cargo }}
-
-            </div>
-
-          </div>
+          
 
           <div class="col-md-6 mb-3">
 

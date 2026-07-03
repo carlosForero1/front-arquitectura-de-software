@@ -119,8 +119,6 @@ export class UsuarioComponent implements OnInit {
 
       nombre: [''],
 
-      cargo: [''],
-
       correo: [''],
 
       usuario: [''],
@@ -150,9 +148,9 @@ export class UsuarioComponent implements OnInit {
         next: (respuesta) => {
 
           this.usuarios = respuesta;
-
+console.log(this.usuarios)
           this.usuariosFiltrados = [...respuesta];
-
+console.log(this.usuariosFiltrados)
           this.cdr.detectChanges();
 
         },
@@ -290,8 +288,6 @@ editar(usuario: Usuario): void {
   this.formulario.patchValue({
 
     nombre: usuario.nombre,
-
-    cargo: usuario.cargo,
 
     correo: usuario.correo,
 
@@ -599,7 +595,7 @@ verPermisos(usuario: Usuario): void {
 
   this.perfilService
 
-    .consultarPermisos(
+    .obtenerPerfil(
 
       (usuario as any).perfilId
 

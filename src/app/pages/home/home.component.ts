@@ -144,7 +144,6 @@ export class HomeComponent implements OnInit {
     this.formulario.patchValue({
 
       nombre: usuario.nombre,
-      cargo: usuario.cargo,
       correo: usuario.correo,
       usuario: usuario.usuario,
       perfilId: (usuario as any).perfilId

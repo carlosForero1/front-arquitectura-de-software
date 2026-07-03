@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { EvolucionComponent } from './pages/evolucion/evolucion.component';
 import { FuncionamientoComponent } from './pages/funcionamiento/funcionamiento.component';
 import { RegistroComponent } from './pages/registro/registro.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
 
@@ -57,6 +58,10 @@ export const routes: Routes = [
       {
         path: 'usuarios',
         component: UsuarioComponent
+      },
+       {
+        path: 'perfil',
+        component: PerfilComponent
       },
       {
         path: '',

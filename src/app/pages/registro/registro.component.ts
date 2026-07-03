@@ -140,7 +140,8 @@ export class RegistroComponent implements OnInit {
 
     error: (error) => {
 
-      console.error(error);
+      console.log(error);
+
 
     }
 
