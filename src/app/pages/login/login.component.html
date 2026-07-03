@@ -1,22 +1,142 @@
-<div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
-      <h1>🛡️ SoporteIA</h1>
-      <p>Sistema de soporte técnico inteligente</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" routerLink="/home">
+            🛡️ AI Security Agent
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+
+            <ul class="navbar-nav ms-auto align-items-center">
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/home">
+                        Inicio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/funcionamiento">
+                        Funcionamiento
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/evolucion">
+                        Evolución
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
     </div>
-    <div class="login-body">
-      <div class="form-group">
-        <label>Usuario</label>
-        <input type="email" [(ngModel)]="usuario" placeholder="usuario@empresa.com"/>
-      </div>
-      <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" [(ngModel)]="password" placeholder="••••••••"/>
-      </div>
-      <div class="error" *ngIf="error">{{ error }}</div>
-      <button (click)="login()" [disabled]="cargando">
-        {{ cargando ? 'Ingresando...' : 'Ingresar' }}
-      </button>
+</nav>
+
+<div class="login-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center">
+
+            <div class="col-lg-5 col-md-8">
+
+                <div class="login-card">
+
+                    <div class="text-center mb-4">
+
+                        <div class="logo-circle">
+                            🛡️
+                        </div>
+
+                        <h2 class="fw-bold mt-3">
+                            Iniciar Sesión
+                        </h2>
+
+                        <p class="text-muted">
+                            Bienvenido al AI Security Agent
+                        </p>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            [(ngModel)]="usuario"
+                            placeholder="usuario@empresa.com">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Contraseña
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            [(ngModel)]="password"
+                            placeholder="********">
+
+                    </div>
+
+                    <div
+                        class="alert alert-danger"
+                        *ngIf="error">
+
+                        {{ error }}
+
+                    </div>
+
+                    <button
+                        class="btn btn-primary w-100"
+                        (click)="login()"
+                        [disabled]="cargando">
+
+                        {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+
+                    </button>
+
+                    <div class="text-center mt-4">
+
+                        <p class="text-muted mb-2">
+                            ¿No tienes una cuenta?
+                        </p>
+
+                        <a
+                            routerLink="/registro"
+                            class="btn btn-outline-primary w-100">
+
+                            Crear una cuenta
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-  </div>
+
 </div>

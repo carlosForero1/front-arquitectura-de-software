@@ -1,0 +1,38 @@
+html{
+    scroll-behavior:smooth;
+}
+
+.hero{
+    height:90vh;
+    background:linear-gradient(135deg,#0d6efd,#0b1f44);
+}
+
+.hero p{
+    max-width:700px;
+    margin:auto;
+}
+
+.card{
+    border:none;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.timeline{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.step{
+    width:240px;
+    padding:25px;
+    border-radius:15px;
+    background:white;
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+    text-align:center;
+}

@@ -47,7 +47,7 @@ import {
 })
 
 export class ReportesComponent
-implements OnInit {
+  implements OnInit {
 
   constructor(
 
@@ -60,7 +60,7 @@ implements OnInit {
     private cdr:
       ChangeDetectorRef
 
-  ) {}
+  ) { }
 
   reportes:
     any[] = [];
@@ -85,61 +85,61 @@ implements OnInit {
 
   }
 
-inicializarFormulario(): void {
+  inicializarFormulario(): void {
 
-  this.formulario =
+    this.formulario =
 
-  this.fb.group({
+      this.fb.group({
 
-    tipo: [
+        tipo: [
 
-      '',
+          '',
 
-      Validators.required
+          Validators.required
 
-    ],
+        ],
 
-    descripcion: [
+        descripcion: [
 
-      '',
+          '',
 
-      Validators.required
+          Validators.required
 
-    ],
+        ],
 
-    recomendacionAgente: [''],
+        recomendacionAgente: [''],
 
-    pasosAgente: [''],
+        pasosAgente: [''],
 
-    accionesPreAgente: [''],
+        accionesPreAgente: [''],
 
-    tiempoCrea: [
+        tiempoCrea: [
 
-      new Date()
+          new Date()
 
-    ],
+        ],
 
-    usuario: [
+        usuario: [
 
-      ''
+          ''
 
-    ],
+        ],
 
-    activo: [
+        activo: [
 
-      true
+          true
 
-    ],
+        ],
 
-    solucionado: [
+        solucionado: [
 
-      false
+          false
 
-    ]
+        ]
 
-  });
+      });
 
-}
+  }
 
   listarReportes(): void {
 
@@ -151,10 +151,9 @@ inicializarFormulario(): void {
           respuesta
         ) => {
 
-         
+
           this.reportes =
             [...respuesta];
-             console.log(this.reportes)
 
           this.cdr.detectChanges();
 
@@ -175,121 +174,121 @@ inicializarFormulario(): void {
 
   }
 
- guardar(): void {
+  guardar(): void {
 
-  if (
+    if (
 
-    this.formulario.invalid
+      this.formulario.invalid
 
-  ) {
+    ) {
 
-    this.formulario
-      .markAllAsTouched();
+      this.formulario
+        .markAllAsTouched();
 
-    return;
+      return;
 
-  }
+    }
 
-  const usuarioGuardado =
+    const usuarioGuardado =
 
-    JSON.parse(
+      JSON.parse(
 
-      localStorage.getItem(
-        'usuario'
-      )
+        localStorage.getItem(
+          'usuario'
+        )
 
-      ||
+        ||
 
-      '{}'
-
-    );
-
-  const data = {
-
-    ...this.formulario.value,
-
-    tiempoCrea:
-
-      new Date(),
-
-    usuario:
-
-      usuarioGuardado.usuario,
-
-    activo:
-
-      true,
-
-    solucionado:
-
-      false
-
-  };
-
-  console.log(
-    'ENVIANDO ->',
-    data
-  );
-
-  const operacion =
-
-    (
-
-      this.editando &&
-
-      this.idEditando
-
-    )
-
-    ?
-
-    this.reporteService
-      .editarReporte(
-
-        this.idEditando,
-
-        data
-
-      )
-
-    :
-
-    this.reporteService
-      .crearReporte(
-
-        data
+        '{}'
 
       );
 
-  operacion
-    .subscribe({
+    const data = {
 
-      next: () => {
+      ...this.formulario.value,
 
-        this.cerrarModal(
-          'modalReporte'
-        );
+      tiempoCrea:
 
-        this.resetFormulario();
+        new Date(),
 
-        this.listarReportes();
+      usuario:
 
-      },
+        usuarioGuardado.usuario,
 
-      error: (
-        error
-      ) => {
+      activo:
 
-        console.error(
-          'Error guardando',
+        true,
+
+      solucionado:
+
+        false
+
+    };
+
+    console.log(
+      'ENVIANDO ->',
+      data
+    );
+
+    const operacion =
+
+      (
+
+        this.editando &&
+
+        this.idEditando
+
+      )
+
+        ?
+
+        this.reporteService
+          .editarReporte(
+
+            this.idEditando,
+
+            data
+
+          )
+
+        :
+
+        this.reporteService
+          .crearReporte(
+
+            data
+
+          );
+
+    operacion
+      .subscribe({
+
+        next: () => {
+
+          this.cerrarModal(
+            'modalReporte'
+          );
+
+          this.resetFormulario();
+
+          this.listarReportes();
+
+        },
+
+        error: (
           error
-        );
+        ) => {
 
-      }
+          console.error(
+            'Error guardando',
+            error
+          );
 
-    });
+        }
 
-}
+      });
+
+  }
 
   editar(
     reporte: any
@@ -375,43 +374,43 @@ inicializarFormulario(): void {
 
   }
 
- resetFormulario(): void {
+  resetFormulario(): void {
 
-  this.formulario.reset({
+    this.formulario.reset({
 
-    tipo: '',
+      tipo: '',
 
-    descripcion: '',
+      descripcion: '',
 
-    recomendacionAgente: '',
+      recomendacionAgente: '',
 
-    pasosAgente: '',
+      pasosAgente: '',
 
-    accionesPreAgente: '',
+      accionesPreAgente: '',
 
-    tiempoCrea:
+      tiempoCrea:
 
-      new Date(),
+        new Date(),
 
-    usuario: '',
+      usuario: '',
 
-    activo:
+      activo:
 
-      true,
+        true,
 
-    solucionado:
+      solucionado:
 
-      false
+        false
 
-  });
+    });
 
-  this.editando =
-    false;
+    this.editando =
+      false;
 
-  this.idEditando =
-    null;
+    this.idEditando =
+      null;
 
-}
+  }
 
   abrirModal(
     id: string

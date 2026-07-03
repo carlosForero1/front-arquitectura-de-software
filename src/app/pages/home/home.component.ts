@@ -21,16 +21,16 @@ import { PerfilService } from '../../services/perfil.service';
 declare var bootstrap: any;
 
 @Component({
-  selector: 'app-usuario',
+  selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule
   ],
-  templateUrl: './usuario.component.html',
-  styleUrl: './usuario.component.scss'
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
-export class UsuarioComponent implements OnInit {
+export class HomeComponent implements OnInit {
 
   usuarios: Usuario[] = [];
 

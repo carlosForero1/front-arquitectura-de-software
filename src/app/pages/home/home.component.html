@@ -1,0 +1,463 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/home">
+            AI Security Agent
+        </a>
+
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/login">Inicio Sesion</a>
+            <a class="nav-link" href="/funcionamiento">Funcionamiento</a>
+            <a class="nav-link" href="/evolucion">Evolución</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero text-center text-white d-flex align-items-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold">
+            Agente Inteligente de Seguridad
+        </h1>
+
+        <p class="lead mt-4">
+            Sistema de monitoreo local capaz de detectar eventos del sistema,
+            analizarlos mediante reglas de seguridad y responder automáticamente
+            para proteger el equipo.
+        </p>
+
+        <a href="/home" class="btn btn-primary btn-lg mt-3">
+            Conocer más
+        </a>
+    </div>
+</header>
+
+<section class="container py-5" id="funciona">
+
+    <div class="text-center mb-5">
+        <h2>¿Cómo funciona?</h2>
+        <p class="text-muted">
+            El agente trabaja completamente en el computador antes de enviar la
+            información relevante al servidor.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+
+                    <h3>📥 A) Leer eventos</h3>
+
+                    <ul>
+                        <li>USB conectados</li>
+                        <li>Procesos activos</li>
+                        <li>Descargas</li>
+                        <li>Ventanas abiertas</li>
+                        <li>PowerShell</li>
+                        <li>CMD</li>
+                        <li>Chrome</li>
+                        <li>Archivos</li>
+                        <li>Conexiones de red</li>
+                        <li>Extensiones</li>
+                        <li>Procesos sospechosos</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+
+                    <h3>🧠 B) Analizar localmente</h3>
+
+                    <p>
+                        El agente combina distintos eventos para calcular el
+                        nivel de riesgo sin depender de la nube.
+                    </p>
+
+                    <pre class="bg-light p-3 rounded">
+PowerShell Bypass
++
+USB
++
+Descarga .exe
+
+= Riesgo ALTO
+</pre>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h3>🛡 C) Responder</h3>
+
+                    <ul>
+                        <li>Finalizar procesos</li>
+                        <li>Bloquear dispositivos USB</li>
+                        <li>Deshabilitar la red</li>
+                        <li>Aislar el equipo</li>
+                        <li>Cerrar aplicaciones</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h3>📡 D) Enviar telemetría</h3>
+
+                    <p>
+                        Cuando se detecta un evento importante, el agente envía
+                        únicamente la información necesaria al backend.
+                    </p>
+
+                    <pre class="bg-dark text-white p-3 rounded">
+
+  "usuario":"Carlos",
+  "equipo":"PC-01",
+  "riesgo":"ALTO"
+
+</pre>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="bg-light py-5">
+
+    <div class="container">
+
+        <h2 class="text-center mb-5">
+            Lo que el agente NO hace
+        </h2>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <ul class="list-group">
+
+                    <li class="list-group-item">
+                        ❌ Guardar históricos gigantes
+                    </li>
+
+                    <li class="list-group-item">
+                        ❌ Crear dashboards
+                    </li>
+
+                    <li class="list-group-item">
+                        ❌ Manejar usuarios empresariales
+                    </li>
+
+                    <li class="list-group-item">
+                        ❌ Autenticación corporativa
+                    </li>
+
+                    <li class="list-group-item">
+                        ❌ IA pesada
+                    </li>
+
+                    <li class="list-group-item">
+                        ❌ Almacenar millones de eventos
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="alert alert-warning">
+
+                    <h4>¿Por qué?</h4>
+
+                    <p>
+
+                        El agente debe permanecer ligero para no afectar el
+                        rendimiento del computador. Su objetivo principal es
+                        detectar amenazas, analizarlas localmente y actuar de
+                        forma inmediata.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="container py-5" id="evolucion">
+
+    <h2 class="text-center mb-5">
+        Evolución del proyecto
+    </h2>
+
+    <div class="timeline">
+
+        <div class="step">
+            <h4>Versión 1</h4>
+            <p>
+                Detecta USB, descargas, capturas de pantalla y registra eventos.
+            </p>
+        </div>
+
+        <div class="step">
+            <h4>Versión 2</h4>
+            <p>
+                Reconocimiento facial, permisos y panel web.
+            </p>
+        </div>
+
+        <div class="step">
+            <h4>Versión 3</h4>
+            <p>
+                LangGraph, memoria de eventos y explicación de decisiones.
+            </p>
+        </div>
+
+        <div class="step">
+            <h4>Versión 4</h4>
+            <p>
+                ESP32, MQTT, múltiples computadores y dashboard en tiempo real.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="py-5 bg-light" id="planes">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Planes del Agente</h2>
+            <p class="text-muted">
+                Selecciona el nivel de protección que mejor se adapte a tus necesidades.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Plan Básico -->
+            <div class="col-lg-4">
+
+                <div class="card h-100 shadow border-0">
+
+                    <div class="card-body text-center">
+
+                        <h3 class="text-primary">Básico</h3>
+
+                        <h1 class="display-5 fw-bold">
+                            Gratis
+                        </h1>
+
+                        <p class="text-muted">
+                            Protección esencial para equipos personales.
+                        </p>
+
+                        <hr>
+
+                        <ul class="list-group list-group-flush text-start">
+
+                            <li class="list-group-item">✔ Detección de USB</li>
+                            <li class="list-group-item">✔ Monitoreo de descargas</li>
+                            <li class="list-group-item">✔ Registro de eventos</li>
+                            <li class="list-group-item">✔ Capturas automáticas</li>
+
+                            <li class="list-group-item text-muted">
+                                ❌ Respuesta automática
+                            </li>
+
+                            <li class="list-group-item text-muted">
+                                ❌ IA local
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0 text-center">
+
+                        <button class="btn btn-outline-primary w-100">
+                            Seleccionar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Profesional -->
+            <div class="col-lg-4">
+
+                <div class="card h-100 shadow border-primary">
+
+                    <div class="card-header bg-primary text-white text-center">
+
+                        <h4>Más Popular</h4>
+
+                    </div>
+
+                    <div class="card-body text-center">
+
+                        <h3>Profesional</h3>
+
+                        <h1 class="display-5 fw-bold">
+                            $19
+                            <small class="fs-6">/mes</small>
+                        </h1>
+
+                        <p class="text-muted">
+                            Protección inteligente para profesionales y pequeñas empresas.
+                        </p>
+
+                        <hr>
+
+                        <ul class="list-group list-group-flush text-start">
+
+                            <li class="list-group-item">✔ Todo lo del plan Básico</li>
+
+                            <li class="list-group-item">
+                                ✔ Análisis local de eventos
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Bloqueo de procesos
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Bloqueo de USB
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Telemetría al servidor
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Reglas inteligentes
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0 text-center">
+
+                        <button class="btn btn-primary w-100">
+                            Comprar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Enterprise -->
+
+            <div class="col-lg-4">
+
+                <div class="card h-100 shadow border-0">
+
+                    <div class="card-body text-center">
+
+                        <h3 class="text-dark">
+                            Enterprise
+                        </h3>
+
+                        <h1 class="display-5 fw-bold">
+                            Contactar
+                        </h1>
+
+                        <p class="text-muted">
+                            Solución completa para organizaciones.
+                        </p>
+
+                        <hr>
+
+                        <ul class="list-group list-group-flush text-start">
+
+                            <li class="list-group-item">
+                                ✔ Todo lo del Profesional
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ LangGraph
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Memoria de eventos
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Explicación de decisiones
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Sensores ESP32
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ MQTT
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Dashboard en tiempo real
+                            </li>
+
+                            <li class="list-group-item">
+                                ✔ Múltiples equipos
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0 text-center">
+
+                        <button class="btn btn-dark w-100">
+                            Solicitar Demo
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="bg-dark text-center text-white p-4">
+    AI Security Agent • Proyecto de Arquitectura de Software
+</footer>
